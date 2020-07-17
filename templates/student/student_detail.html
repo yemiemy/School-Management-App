@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  
+
+  
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-user">
+              <div class="card-body">
+                <p class="card-text">
+                  <div class="author">
+                    <div class="block block-one"></div>
+                    <div class="block block-two"></div>
+                    <div class="block block-three"></div>
+                    <div class="block block-four"></div>
+                    <a>
+                      <img class="avatar" src="{{ object.upload_student_photo.url }}" alt="student photo">
+                      <h3 class="title">{{object.first_name}} {{ object.last_name }} 
+                          <a href="{% url 'update-student' object.slug %}" title="Edit Student Details"><i class="tim-icons icon-pencil"></i></a> 
+                      </h3>
+                    </a>
+                  </div>
+                </p>
+                <div class="card-description">
+                  {{object.short_BIO}}
+                </div>
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Name:
+                                </td>
+                                <td>
+                                    <strong>{{object.first_name| capfirst}} {{ object.last_name | capfirst}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Admission ID:
+                                </td>
+                                <td>
+                                    <strong>#{{object.admission_id}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Gender:
+                                </td>
+                                <td>
+                                    <strong>{{object.gender}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Blood Group:
+                                </td>
+                                <td>
+                                    <strong>{{object.blood_group}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Parent's Name:
+                                </td>
+                                <td>
+                                    {% for parent in object.parent_set.all %}
+                                    <strong>{{parent.first_name|capfirst}} {{ parent.last_name|capfirst }}</strong> 
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Date Of Birth:
+                                </td>
+                                <td>
+                                    <strong>{{object.date_of_birth}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Religion:
+                                </td>
+                                <td>
+                                    <strong>{{object.religion|capfirst}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Parent's Occupation:
+                                </td>
+                                <td>
+                                    {% for parent in object.parent_set.all %}
+                                    <strong>{{parent.occupation}}</strong>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Email:
+                                </td>
+                                <td>
+                                    <strong>{{object.email}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Admission Date:
+                                </td>
+                                <td>
+                                    <strong>{{object.date_stamp}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Class:
+                                </td>
+                                <td>
+                                    <strong>{{object.student_class.name}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Courses:
+                                </td>
+                                <td>
+                                    {% for course in courses %}
+                                    {% if course.select_class.name == object.student_class.name %}
+                                    <strong>{{course.name}},</strong>
+                                    {% elif course.select_class.name == 'Junior Class' %}
+                                        {% if object.student_class.name == 'JSS 1' or object.student_class.name == 'JSS 2' or object.student_class.name == 'JSS 3'%}
+                                            <strong>{{course.name}},</strong>
+                                        {% endif %}
+                                    {% elif course.select_class.name == 'Senior Class' %}
+                                        {% if object.student_class.name == 'SSS 1' or object.student_class.name == 'SSS 2' or object.student_class.name == 'SSS 3'%}
+                                            <strong>{{course.name}},</strong>
+                                        {% endif %}
+                                    {% elif course.select_class.name == 'All Classes' %}
+                                            <strong>{{course.name}},</strong>
+                                    {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Address:
+                                </td>
+                                <td>
+                                    {% for parent in object.parent_set.all %}
+                                    <strong>{{parent.address}}</strong>
+                                    {% endfor %} 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Phone:
+                                </td>
+                                <td>
+                                    <strong>{{object.phone}}</strong> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endblock content %}

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+  All Students
+{% endblock title %}
+  
+
+{% block stu %}
+    active
+{% endblock stu %}
+    
+
+{% block top %}
+   <a  style="color: turquoise;"> Students</a>
+{% endblock top %}
+
+{% load humanize %}
+
+{% block content %}  
+  
+      <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+              {% include 'alerts.html' %}
+              <div class="card">
+                <div class="card-body">
+                  <form action="{% url 'search' %}">
+                    {% include 'form_errors.html' %}
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-md-3 pr-md-1">
+                        <div class="form-group">
+                          <input type="search" name="admission_id" maxlength="120" class="form-control" placeholder="Search by admission id" >
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <input type="search" name="name" maxlength="120" class="form-control" placeholder="Search by Name" id="id_last_name">
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <input type="search" name="class" placeholder="Search by Class" class="form-control" >
+                        </div>
+                      </div>
+                      <div class="col-md-3 pl-md-1">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-fill btn-primary" value="Search">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="card card-tasks">
+              <div class="card-header ">
+                <h6 class="title d-inline"> <strong> All Students Data</strong></h6>
+                <div class="dropdown">
+                  <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
+                    <i class="tim-icons icon-settings-gear-63"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'admission' %}">Add Student</a>
+                    <a class="dropdown-item" href="{% url 'add_parent' %}">Add Parent</a>
+                    <a class="dropdown-item" href="{% url 'all_parent' %}">All Parents</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body ">
+                <div class="table-full-width table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                        <tr>
+                          <th>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="checkbox" checked value="">
+                                  <span class="form-check-sign">
+                                    <span class="check"></span>
+                                  </span>
+                                </label>
+                              </div>
+                          </th>
+                          <th>
+                            Admission Id
+                          </th>
+                          <th>
+                            Photo
+                          </th>
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                            Gender
+                          </th>
+                          <th>
+                            Class
+                          </th>
+                          <th>
+                            Parents
+                          </th>
+                          <th>
+                            Address
+                          </th>
+                          <th>
+                            Date of birth
+                          </th>
+                          <th>
+                            Phone
+                          </th>
+                          <th>
+                            E-mail
+                          </th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                    {% for student in students %}
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">#{{ student.admission_id }}</p>
+                        </td>
+                        <td class="td-actions text-right">
+                          <img src="{{student.upload_student_photo.url}}" class="avatar" alt=""> 
+                        </td>
+                        <td>
+                          <p class="title"> <a href="{% url 'student' student.slug %}"><strong>{{student.first_name}}</strong></a></p>
+                          <p class="text-muted">{{ student.last_name }}</p>
+                        </td>
+                        <td>
+                          <p>{{student.gender}}</p>
+                        </td>
+                        <td>
+                          <p class="title">{{ student.student_class }}</p>
+                        </td>
+                        <td>
+                            {% if student.parent_set.all %}
+                            {% for parent in student.parent_set.all %}
+                                <p>{{ parent.first_name }}</p>
+                            {% endfor %}
+                            {% else %}
+                                <p>---</p>
+                            {% endif %}
+                        </td>
+                        <td class="">
+                            {% if student.parent_set.all %}
+                            {% for parent in student.parent_set.all %}
+                                <p>{{ parent.address|truncatewords:2 }}</p>
+                            {% endfor %}
+                            {% else %}
+                                <p>---</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                          <p>{{ student.date_of_birth }}</p>
+                        </td>
+                        <td>
+                          <p>{{ student.phone }}</p>
+                        </td>
+                        <td>
+                          <p>{{ student.email }}</p>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

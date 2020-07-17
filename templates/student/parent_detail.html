@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+
+{% block par %}
+    active
+{% endblock par %}
+
+{% block top %}
+    All Parents
+{% endblock top %}
+        
+
+{% block content %}
+  
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-user">
+              <div class="card-body">
+                <p class="card-text">
+                  <div class="author">
+                    <div class="block block-one"></div>
+                    <div class="block block-two"></div>
+                    <div class="block block-three"></div>
+                    <div class="block block-four"></div>
+                    <a>
+                      <img class="avatar" src="{{ object.upload_parent_photo.url }}" alt="student photo">
+                      <h3 class="title">{{object.first_name}} {{ object.last_name }} 
+                          <a href="{% url 'update-parent' object.slug %}" title="Edit Student Details"><i class="tim-icons icon-pencil"></i></a> 
+                      </h3>
+                    </a>
+                  </div>
+                </p>
+                <div class="card-description">
+                  {{object.short_BIO}}
+                </div>
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Name:
+                                </td>
+                                <td>
+                                    <strong>{{object.first_name| capfirst}} {{ object.last_name | capfirst}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Gender:
+                                </td>
+                                <td>
+                                    <strong>{{object.gender}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Blood Group:
+                                </td>
+                                <td>
+                                    <strong>{{object.blood_group}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Occupation:
+                                </td>
+                                <td>
+                                    <strong>{{object.occupation}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Ward:
+                                </td>
+                                <td>
+                                    {% for ward in object.ward.all %}
+                                    <strong>{{ward.first_name|capfirst}} {{ ward.last_name|capfirst }}</strong> 
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Address:
+                                </td>
+                                <td>
+                                    <strong>{{object.address}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Religion:
+                                </td>
+                                <td>
+                                    <strong>{{object.religion|capfirst}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Email:
+                                </td>
+                                <td>
+                                    <strong>{{object.email}}</strong> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Phone:
+                                </td>
+                                <td>
+                                    <strong>{{object.phone}}</strong> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endblock content %}

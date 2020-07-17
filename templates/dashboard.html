@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+  Admin Dashboard
+{% endblock title %}
+  
+
+{% block content %}  
+  
+      <div class="content">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon" style="float: left;">
+                  <i class="tim-icons icon-single-02"></i>
+                </div>
+                <div style="float: right;">
+                  <h4 class="card-title">Students</h4>
+                  <h3 class="card-title"><strong>{{ student_count }}</strong>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon" style="float: left;">
+                  <i class="tim-icons icon-single-02"></i>
+                </div>
+                <div style="float: right;">
+                  <h4 class="card-title">Parents</h4>
+                  <h3 class="card-title"><strong>{{ parent_count }}</strong>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon" style="float: left;">
+                  <i class="tim-icons icon-badge"></i>
+                </div>
+                <div style="float: right;">
+                  <h4 class="card-title">Teachers</h4>
+                  <h3 class="card-title"><strong>15</strong>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
